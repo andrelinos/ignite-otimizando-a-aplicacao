@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { memo, useEffect, useState } from 'react';
+import lodash from 'lodash';
+
 import { MovieCard } from '../MovieCard';
 
 import { api } from '../../services/api';
 
 import './styles.scss';
+import { Header } from '../Header';
 
 type ContentProps = {
     selectedGenreId: number;
@@ -25,7 +28,7 @@ interface MovieProps {
     Runtime: string;
 }
 
-export function Content({ selectedGenreId }: ContentProps) {
+function ContentItems({ selectedGenreId }: ContentProps) {
   const [movies, setMovies] = useState<MovieProps[]>([]);
   const [selectedGenre, setSelectedGenre] = useState<GenreContentProps>(
         {} as GenreContentProps,
@@ -43,12 +46,7 @@ export function Content({ selectedGenreId }: ContentProps) {
 
   return (
     <div className="container">
-      <header>
-        <span className="category">
-          Categoria:<span> {selectedGenre.title}</span>
-        </span>
-      </header>
-
+      <Header selectedGenre={selectedGenre.title} />
       <main>
         <div className="movies-list">
           {movies.map((movie) => (
@@ -65,3 +63,10 @@ export function Content({ selectedGenreId }: ContentProps) {
     </div>
   );
 }
+
+export const Content = memo(
+  ContentItems,
+  (prevProps, nextProps) => (
+    lodash.isEqual(prevProps.selectedGenreId, nextProps.selectedGenreId)
+  ),
+);

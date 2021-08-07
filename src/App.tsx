@@ -3,11 +3,7 @@ import { useEffect, useState } from 'react';
 import { SideBar } from './components/SideBar';
 import { Content } from './components/Content';
 
-
-
 import './styles/global.scss';
-
-
 
 interface MovieProps {
   imdbID: string;
@@ -33,5 +29,5 @@ export function App() {
       <Content selectedGenreId={selectedGenreId} />
 
     </div>
-  )
+  );
 }
