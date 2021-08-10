@@ -35,12 +35,12 @@ function ContentItems({ selectedGenreId }: ContentProps) {
   );
 
   useEffect(() => {
-    api.get(`movies/?Genre_id=${selectedGenreId}`).then((response) => {
-      setMovies(response.data);
-    });
-
     api.get(`genres/${selectedGenreId}`).then((response) => {
       setSelectedGenre(response.data);
+    });
+
+    api.get(`movies/?Genre_id=${selectedGenreId}`).then((response) => {
+      setMovies(response.data);
     });
   }, [selectedGenreId]);
 

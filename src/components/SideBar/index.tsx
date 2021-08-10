@@ -1,29 +1,13 @@
-import { useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { useContext } from 'react';
+
+import { MoviesContext } from '../../context/MoviesContext';
 import { Button } from '../Button';
 
 import './styles.scss';
 
-interface GenreContentProps {
-    id: number;
-    name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
-    title: string;
-}
-
-interface SideBarProps {
-    // eslint-disable-next-line no-undef
-    setSelectedGenreId: React.Dispatch<React.SetStateAction<number>>;
-    selectedGenreId: number;
-}
-
-export function SideBar({ selectedGenreId, setSelectedGenreId }: SideBarProps) {
-  const [genres, setGenres] = useState<GenreContentProps[]>([]);
-
-  useEffect(() => {
-    api.get<GenreContentProps[]>('genres').then((Content) => {
-      setGenres(Content.data);
-    });
-  }, []);
+export function SideBar() {
+  const { selectedGenreId, setSelectedGenreId } = useContext(MoviesContext);
+  const { genres } = useContext(MoviesContext);
 
   function handleClickButton(id: number) {
     setSelectedGenreId(id);
