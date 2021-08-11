@@ -1,31 +1,36 @@
+import { memo } from 'react';
+import lodash from 'lodash';
+
 import { Star, Clock } from 'react-feather';
 
 import './styles.scss';
 
-interface MovieCardProps {
-    title: string;
-    poster: string;
-    rating: string;
-    runtime: string;
+type MovieCardProps = {
+  title: string;
+  poster: string;
+  rating: string;
+  runtime: string;
+};
+
+interface MovieCards {
+  movieCard: MovieCardProps;
 }
 
-export function MovieCard({
-  title, poster, rating, runtime,
-}: MovieCardProps) {
+export function MovieCardComponent({ movieCard }: MovieCards) {
   return (
     <div className="movie-card">
-      <img src={poster} alt={title} />
+      <img src={movieCard.poster} alt={movieCard.title} />
 
       <div>
         <div className="movie-info">
-          <span>{title}</span>
+          <span>{movieCard.title}</span>
           <div className="meta">
             <div>
-              <Star /> {rating}
+              <Star /> {movieCard.rating}
             </div>
 
             <div>
-              <Clock /> {runtime}
+              <Clock /> {movieCard.runtime}
             </div>
           </div>
         </div>
@@ -33,3 +38,13 @@ export function MovieCard({
     </div>
   );
 }
+
+// export const MovieCard = memo(
+//   MovieCardComponent,
+//   (prevProps, nextProps) => lodash.isEqual(prevProps.movieCard, nextProps.movieCard),
+// );
+
+export const MovieCard = memo(
+  MovieCardComponent,
+  (prevProps, nextProps) => Object.is(prevProps.movieCard, nextProps.movieCard),
+);

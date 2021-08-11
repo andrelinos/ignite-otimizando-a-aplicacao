@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense } from 'react';
 
 import { SideBar } from './components/SideBar';
-import { Content } from './components/Content';
+
+import { MoviesContextProvider } from './context/MoviesContext';
 
 import './styles/global.scss';
+
+const Content = lazy(() => import('./components/Content'));
 
 interface MovieProps {
   imdbID: string;
@@ -17,17 +20,16 @@ interface MovieProps {
 }
 
 export function App() {
-  const [selectedGenreId, setSelectedGenreId] = useState(1);
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'row' }}>
-      <SideBar
-        selectedGenreId={selectedGenreId}
-        setSelectedGenreId={setSelectedGenreId}
-      />
+    <MoviesContextProvider>
+      <div style={{ display: 'flex', flexDirection: 'row' }}>
+        <SideBar />
 
-      <Content selectedGenreId={selectedGenreId} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Content />
+        </Suspense>
 
-    </div>
+      </div>
+    </MoviesContextProvider>
   );
 }

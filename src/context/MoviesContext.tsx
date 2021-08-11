@@ -37,6 +37,7 @@ interface MoviesContextProviderProps {
 }
 
 export const MoviesContext = createContext({} as MoviesContextType);
+
 export function MoviesContextProvider(children: MoviesContextProviderProps) {
   const [selectedGenreId, setSelectedGenreId] = useState(1);
   const [genres, setGenres] = useState<GenreResponseProps[]>([]);
