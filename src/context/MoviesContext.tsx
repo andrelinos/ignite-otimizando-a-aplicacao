@@ -38,7 +38,7 @@ interface MoviesContextProviderProps {
 
 export const MoviesContext = createContext({} as MoviesContextType);
 
-export function MoviesContextProvider(children: MoviesContextProviderProps) {
+export function MoviesContextProvider({ children }: MoviesContextProviderProps) {
   const [selectedGenreId, setSelectedGenreId] = useState(1);
   const [genres, setGenres] = useState<GenreResponseProps[]>([]);
   const [movies, setMovies] = useState<MovieProps[]>([]);
@@ -46,25 +46,31 @@ export function MoviesContextProvider(children: MoviesContextProviderProps) {
     {} as GenreResponseProps,
   );
 
-  useEffect(() => {
-    api.get<GenreResponseProps[]>('genres').then((response) => {
-      setGenres(response.data);
-    });
-  }, []);
-
-  useEffect(() => {
-    api
-      .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
-      .then((response) => {
-        setMovies(response.data);
+  try {
+    useEffect(() => {
+      api.get<GenreResponseProps[]>('genres').then((response) => {
+        setGenres(response.data);
       });
+    }, []);
 
-    api
-      .get<GenreResponseProps>(`genres/${selectedGenreId}`)
-      .then((response) => {
-        setSelectedGenre(response.data);
-      });
-  }, [selectedGenreId]);
+    useEffect(() => {
+      api
+        .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
+        .then((response) => {
+          setMovies(response.data);
+        });
+
+      api
+        .get<GenreResponseProps>(`genres/${selectedGenreId}`)
+        .then((response) => {
+          setSelectedGenre(response.data);
+        });
+    }, [selectedGenreId]);
+  } catch (err) {
+    return (
+      console.log('Ocorreu um erro ao tentar ler dados da api.')
+    );
+  }
 
   return (
     <MoviesContext.Provider
