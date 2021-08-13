@@ -41,10 +41,14 @@ export function MovieCardComponent({ movieCard }: MovieCards) {
 
 export const MovieCard = memo(
   MovieCardComponent,
-  (prevProps, nextProps) => lodash.isEqualWith(prevProps.movieCard, nextProps.movieCard),
+  (prevProps, nextProps) => lodash.isEqualWith(
+    prevProps.movieCard, nextProps.movieCard,
+  ),
 );
 
 // export const MovieCard = memo(
 //   MovieCardComponent,
-//   (prevProps, nextProps) => Object.is(prevProps.movieCard, nextProps.movieCard),
+//   (prevProps, nextProps) => Object.is(
+//    prevProps.movieCard, nextProps.movieCard,
+//   ),
 // );

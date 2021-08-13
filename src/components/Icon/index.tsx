@@ -1,7 +1,7 @@
 /* eslint-disable default-case */
 interface IconProps {
-    name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
-    color: string;
+  name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
+  color: string;
 }
 
 export function Icon(props: IconProps) {

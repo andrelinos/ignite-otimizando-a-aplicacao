@@ -28,7 +28,6 @@ export function App() {
         <Suspense fallback={<div>Loading...</div>}>
           <Content />
         </Suspense>
-
       </div>
     </MoviesContextProvider>
   );

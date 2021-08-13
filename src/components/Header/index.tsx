@@ -1,14 +1,18 @@
 import './styles.scss';
 
 interface HeaderProps {
-  selectedGenre?: string
+  selectedGenre?: string;
 }
 
 export function Header({ selectedGenre }: HeaderProps) {
   return (
     <header>
       <span className="category">
-        {selectedGenre && <>Categoria:<span> {selectedGenre}</span></>}
+        {selectedGenre && (
+          <>
+            Categoria:<span> {selectedGenre}</span>
+          </>
+        )}
       </span>
     </header>
   );

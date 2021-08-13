@@ -1,15 +1,18 @@
 import {
-  createContext,
-  ReactNode,
-  useEffect,
-  useState,
+  createContext, ReactNode, useEffect, useState,
 } from 'react';
 
 import { api } from '../services/api';
 
 interface GenreResponseProps {
   id: number;
-  name: 'action' | 'comedy' | 'documentary' | 'drama' | 'horror' | 'family';
+  name:
+    | 'action'
+    | 'comedy'
+    | 'documentary'
+    | 'drama'
+    | 'horror'
+    | 'family';
   title: string;
 }
 
@@ -38,7 +41,9 @@ interface MoviesContextProviderProps {
 
 export const MoviesContext = createContext({} as MoviesContextType);
 
-export function MoviesContextProvider({ children }: MoviesContextProviderProps) {
+export function MoviesContextProvider({
+  children,
+}: MoviesContextProviderProps) {
   const [selectedGenreId, setSelectedGenreId] = useState(1);
   const [genres, setGenres] = useState<GenreResponseProps[]>([]);
   const [movies, setMovies] = useState<MovieProps[]>([]);
@@ -46,31 +51,33 @@ export function MoviesContextProvider({ children }: MoviesContextProviderProps) 
     {} as GenreResponseProps,
   );
 
-  try {
-    useEffect(() => {
-      api.get<GenreResponseProps[]>('genres').then((response) => {
-        setGenres(response.data);
+  useEffect(() => {
+    api.get<GenreResponseProps[]>('genres').then((response) => {
+      setGenres(response.data);
+    });
+  }, []);
+
+  useEffect(() => {
+    api
+      .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
+      .then((response) => {
+        setMovies(response.data);
+      }).catch((error) => {
+        if (error.response && error.response.status === 404) {
+          console.log('🌏 No data found...');
+        }
       });
-    }, []);
 
-    useEffect(() => {
-      api
-        .get<MovieProps[]>(`movies/?Genre_id=${selectedGenreId}`)
-        .then((response) => {
-          setMovies(response.data);
-        });
-
-      api
-        .get<GenreResponseProps>(`genres/${selectedGenreId}`)
-        .then((response) => {
-          setSelectedGenre(response.data);
-        });
-    }, [selectedGenreId]);
-  } catch (err) {
-    return (
-      console.log('Ocorreu um erro ao tentar ler dados da api.')
-    );
-  }
+    api
+      .get<GenreResponseProps>(`genres/${selectedGenreId}`)
+      .then((response) => {
+        setSelectedGenre(response.data);
+      }).catch((error) => {
+        if (error.response && error.response.status === 404) {
+          console.log('🌏 No data found...');
+        }
+      });
+  }, [selectedGenreId]);
 
   return (
     <MoviesContext.Provider
