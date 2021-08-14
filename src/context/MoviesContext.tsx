@@ -1,6 +1,7 @@
 import {
   createContext, ReactNode, useEffect, useState,
 } from 'react';
+import { Header } from '../components/Header';
 
 import { api } from '../services/api';
 
@@ -63,9 +64,7 @@ export function MoviesContextProvider({
       .then((response) => {
         setMovies(response.data);
       }).catch((error) => {
-        if (error.response && error.response.status === 404) {
-          console.log('🌏 No data found...');
-        }
+        console.log('🌏 No data found...');
       });
 
     api
@@ -73,7 +72,7 @@ export function MoviesContextProvider({
       .then((response) => {
         setSelectedGenre(response.data);
       }).catch((error) => {
-        if (error.response && error.response.status === 404) {
+        if (error) {
           console.log('🌏 No data found...');
         }
       });
