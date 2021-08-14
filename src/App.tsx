@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { Loading } from './components/Loading';
 
 import { SideBar } from './components/SideBar';
 
@@ -25,7 +26,7 @@ export function App() {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         <SideBar />
 
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Content />
         </Suspense>
       </div>
