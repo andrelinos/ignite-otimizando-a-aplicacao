@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 import { MoviesContext } from '../../context/MoviesContext';
 import { Button } from '../Button';
@@ -6,6 +6,7 @@ import { Button } from '../Button';
 import './styles.scss';
 
 export function SideBar() {
+  const [isActive, setIsActive] = useState(false);
   const { selectedGenreId, setSelectedGenreId } = useContext(MoviesContext);
   const { genres } = useContext(MoviesContext);
 
@@ -13,22 +14,35 @@ export function SideBar() {
     setSelectedGenreId(id);
   }
 
-  return (
-    <nav className="sidebar">
-      <span>
-        Watch<p>Me</p>
-      </span>
+  const handleToggle = () => {
+    setIsActive(!isActive);
+  };
 
-      <div className="buttons-container">
-        {genres.map((genre) => (
-          <Button
-            key={String(genre.id)}
-            title={genre.title}
-            iconName={genre.name}
-            onClick={() => handleClickButton(genre.id)}
-            selected={selectedGenreId === genre.id}
-          />
-        ))}
+  return (
+    <nav className="sidebar-container">
+      <button
+        type="button"
+        className="sidebar-button"
+        onClick={handleToggle}
+      >
+        <img src="./images/menu.svg" alt="Menu" />
+      </button>
+      <div className={isActive ? 'sidebar bt-right ' : 'hide bt-right'}>
+        <span>
+          Watch<p>Me</p>
+        </span>
+
+        <div className="buttons-container">
+          {genres.map((genre) => (
+            <Button
+              key={String(genre.id)}
+              title={genre.title}
+              iconName={genre.name}
+              onClick={() => handleClickButton(genre.id)}
+              selected={selectedGenreId === genre.id}
+            />
+          ))}
+        </div>
       </div>
     </nav>
   );

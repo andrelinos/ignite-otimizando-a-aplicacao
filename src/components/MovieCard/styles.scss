@@ -1,9 +1,14 @@
 .movie-card {
   position: relative;
+  margin: 0 auto;
+  overflow: hidden;
 
   img {
-    width: 14.31rem;
-    height: 21.25rem;
+    width: 100%;
+    height: auto;
+    min-width: 14.31rem;
+    min-height: 25.25rem;
+
   }
 
   > div {
@@ -19,7 +24,7 @@
     background: rgba(31, 34, 41, 0.5);
 
     .movie-info {
-      max-width: 12.31rem;
+      max-width: 88%;
       width: 100%;
 
       display: flex;
@@ -55,5 +60,12 @@
         }
       }
     }
+  }
+}
+
+@media screen and (min-width: 1250px) {
+  .movie-card {
+    max-width: 20.31rem;
+    max-height: 27.25rem;
   }
 }
