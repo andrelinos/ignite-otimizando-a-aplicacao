@@ -1,9 +1,13 @@
 nav.sidebar-container {
   max-width: 22rem;
   width: auto;
-  position: relative;
+  position: absolute;
+  z-index: 8;
+  top: 2rem;
+  left: 3rem;
 
   div.sidebar {
+    position: relative;
     display: flex;
     flex-direction: column;
 
@@ -38,50 +42,43 @@ nav.sidebar-container {
 
   .sidebar-button {
     position: absolute;
+    padding: 0.313px;
     width: 3rem;
     height: 3rem;
     background: var(--background-button2);
     color: var(--yellow);
-    top: 1rem;
-    right: -5rem;
-    border-radius: 4px;
+    top: 0;
+    left: 0;
+    z-index: 9;
+
+    border-right: 5px solid var(--background);
+    border-bottom: 5px solid var(--background);
+    border-radius: 1px;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-size: 3rem;
     font-weight: bold;
+    overflow: hide;
 
     cursor: pointer;
-    z-index: 99;
 
-    img {
-      width: 2.5rem;
+    img, svg {
+      width: 2rem;
     }
   }
 
-  @media screen and (min-width: 993px) {
-    .sidebar-button {
-      display: none;
-    }
-  }
-}
-
-@media screen and (max-width: 992px) {
   nav.sidebar-container {
-    position: absolute;
-    z-index: 8;
     top: 0;
     left: 0rem;
+  }
 
- }
-}
+  .hide {
+    display: none;
+  }
 
-.hide {
-  display: none;
-}
-
-.bt-right {
-  right: 0rem;
+  .bt-right {
+    right: 0rem;
+  }
 }

@@ -12,6 +12,7 @@ export function SideBar() {
 
   function handleClickButton(id: number) {
     setSelectedGenreId(id);
+    setIsActive(false);
   }
 
   const handleToggle = () => {

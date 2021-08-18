@@ -10,7 +10,7 @@ export function Header({ selectedGenre }: HeaderProps) {
       <span className="category">
         {selectedGenre && (
           <>
-            Categoria:<span> {selectedGenre}</span>
+            <span> {selectedGenre}</span>
           </>
         )}
       </span>
