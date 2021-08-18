@@ -6,6 +6,18 @@ nav.sidebar-container {
   top: 2rem;
   left: 3rem;
 
+  > span {
+    margin-left: 5rem;
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--yellow);
+
+    p {
+      display: inline;
+      color: var(--white);
+    }
+  }
+
   div.sidebar {
     position: relative;
     display: flex;
@@ -20,19 +32,7 @@ nav.sidebar-container {
 
     background: var(--background2);
 
-    > span {
-      margin-bottom: 4.5rem;
-      font-size: 3rem;
-      font-weight: 600;
-      color: var(--yellow);
-
-      p {
-        display: inline;
-        color: var(--white);
-      }
-    }
-
-    .buttons-container {
+        .buttons-container {
       display: flex;
       flex-direction: column;
 
@@ -47,7 +47,7 @@ nav.sidebar-container {
     height: 3rem;
     background: var(--background-button2);
     color: var(--yellow);
-    top: 0;
+    top: 1rem;
     left: 0;
     z-index: 9;
 

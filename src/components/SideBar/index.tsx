@@ -28,10 +28,10 @@ export function SideBar() {
       >
         <img src="./images/menu.svg" alt="Menu" />
       </button>
+      <span>
+        Watch<p>Me</p>
+      </span>
       <div className={isActive ? 'sidebar bt-right ' : 'hide bt-right'}>
-        <span>
-          Watch<p>Me</p>
-        </span>
 
         <div className="buttons-container">
           {genres.map((genre) => (
